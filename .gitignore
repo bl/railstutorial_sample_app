@@ -7,6 +7,12 @@
 # Ignore bundler config.
 /.bundle
 
+# ignore ctrlp ignore file
+.ctrlpignore
+
+# ignore byebug logs
+.byebug_history
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
