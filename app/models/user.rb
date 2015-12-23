@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # block to execute before .save calls to bring email to lowercase
-  before_save { self.email = email.downwcase }
+  before_save { self.email = email.downcase }
 
   # call validates with attribute and optinos hash requiring presence on name field
   validates :name, presence: true, length: { maximum: 50}
@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX},
                     uniqueness: { case_sensitive: false }
+  validates :password, presence: true, length: { minimum: 6 }
 
   has_secure_password
 end
