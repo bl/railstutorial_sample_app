@@ -32,6 +32,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
         post_via_redirect users_path, user: u
       end
       assert_template 'users/show'
+      assert_not flash.empty?
     end
   end
 end
