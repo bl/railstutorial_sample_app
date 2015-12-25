@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       # log the user in and redirect to the user's show page
       log_in user
       # store user remember token
-      remember user
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to user
     else
       # create an error message
