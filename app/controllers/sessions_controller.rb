@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       log_in @user
       # store user remember token
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      redirect_to @user
+      redirect_back_or @user
     else
       # create an error message
       flash.now[:danger] = "Invalid email/password combination"
