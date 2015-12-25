@@ -4,6 +4,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   def setup
     @invalid_users = [ 
         {name: "", email: "", password: "", password_confirmation: ""},
+        {name: "test", email: "foo@bar.com", password: "", password_confirmation: ""},
         {name: "", email: "user@invalid", password: "foo", password_confirmation: "bar"},
         {name: "test", email: "valid@email.com", password: "abc", password_confirmation: "abc"},
         {name: "test", email: "valid@email.com", password: "abc", password_confirmation: "abcd"},
