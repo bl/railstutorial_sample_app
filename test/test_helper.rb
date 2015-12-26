@@ -28,6 +28,11 @@ class ActiveSupport::TestCase
     end
   end
 
+  # logs out as a test user (TODO: refactor multiple user checks into separate tests?)
+  def log_out
+    session.delete(:user_id)
+  end
+
   # returns true inside an integration test
   def integration_test?
     defined?(post_via_redirect)
