@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
   # virtual (non-ActiveRecord) attribute to store remember token
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
   # block to execute before .save calls to bring email to lowercase
-  before_save { email.downcase! }
+  before_save   :downcase_email
+  before_create :create_activation_digest
 
   # call validates with attribute and optinos hash requiring presence on name field
   validates :name, presence: true, length: { maximum: 50}
@@ -33,13 +34,26 @@ class User < ActiveRecord::Base
   end
 
   # returns true if the given token matches the digest
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   # forgets a user
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  private
+    # converts email to all lover-case
+    def downcase_email
+      self.email = email.downcase
+    end
+
+    # creates and assigns the activation token and digest
+    def create_activation_digest
+      self.activation_token = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
 end
