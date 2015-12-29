@@ -39,4 +39,21 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     get users_path
     assert_select 'a', text: 'delete', count: 0
   end
+
+  test "index as non-activated user" do
+    log_in_as(@admin)
+    @non_admin.update_attribute(:activated, false)
+    get users_path
+    assert_template 'users/index'
+    assert_select 'a[href=?]', user_path(@non_admin), text: @non_admin.name, count: 0
+  end
+
+  # TODO: relocate to own intergration file
+  test "should redirect on show non-activated user page" do
+    log_in_as(@admin)
+    @non_admin.update_attribute :activated, false
+    get user_path(@non_admin)
+    assert redirect?
+    assert_redirected_to root_url
+  end
 end
