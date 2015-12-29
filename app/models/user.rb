@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  # association with microposts, on User destroy, propogate through microposts
+  has_many :microposts, dependent: :destroy
   # virtual (non-ActiveRecord) attribute to store remember token
   attr_accessor :remember_token, :activation_token, :reset_token
   # block to execute before .save calls to bring email to lowercase
