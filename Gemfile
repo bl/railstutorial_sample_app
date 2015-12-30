@@ -29,6 +29,13 @@ gem 'faker',          '1.4.2'
 gem 'will_paginate',  '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 
+# Use carrierwave for image uploading
+gem 'carrierwave',    '~> 0.10'
+
+# Use mini_magik for image resizing
+gem 'mini_magick'
+# Use fog for image upload in production
+gem 'fog',            '~> 1.36' 
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -74,6 +74,11 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
 
+  # Defines a proto-feed
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
+
   private
     # converts email to all lover-case
     def downcase_email
